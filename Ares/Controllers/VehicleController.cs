@@ -1,6 +1,9 @@
-﻿using API.DTOs.Vehicle;
+﻿using API.DTOs.Pagination;
+using API.DTOs.Vehicle;
 using API.Enums;
+using API.Extensions;
 using API.Interfaces.Services;
+using API.Models.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +16,16 @@ namespace API.Controllers
         public VehicleController(IVehicleService vehicleService)
         {
             _vehicleService = vehicleService;
+        }
+
+        [Authorize(Roles = $"{Roles.Driver}")]
+        [HttpGet("{driverId}/vehicles")]
+        public async Task<ActionResult> DriverVehicles([FromQuery] PaginationParams pagingParams,int driverId)
+        {
+            if (driverId != GetLoggedInUserId()) throw new CustomException("Sürücü bilgisi geçersiz");
+            var result = await _vehicleService.GetDriverVehicles(pagingParams, GetLoggedInUserId());
+            Response.AddPaginationHeader(result.Result.CurrentPage, result.Result.PageSize, result.Result.TotalCount, result.Result.TotalPages);
+            return Ok(result);
         }
 
         [Authorize(Roles = $"{Roles.Driver}")]

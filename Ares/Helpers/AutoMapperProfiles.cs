@@ -1,3 +1,5 @@
+using API.DTOs.Vehicle;
+using API.Entities;
 using AutoMapper;
 
 namespace API.Helpers
@@ -6,7 +8,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-         
+            CreateMap<Vehicle, VehicleDto>();
         }
     }
 }
