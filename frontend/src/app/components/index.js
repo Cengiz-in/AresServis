@@ -27,3 +27,4 @@ export { default as MatxVerticalNavExpansionPanel } from './MatxVerticalNav/Matx
 export { default as SimpleCard } from './SimpleCard';
 //Ares
 export { default as AresLogo } from './AresLogo';
+export { default as GoogleMaps } from './GoogleMaps';

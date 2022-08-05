@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import { Fragment, useEffect, useState } from 'react';
-import GoogleMaps from 'app/components/GoogleMaps';
+import { Fragment, useEffect } from 'react';
+import { GoogleMaps } from 'app/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLocations } from 'app/redux/actions/LocationActions';
 
