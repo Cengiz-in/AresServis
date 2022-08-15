@@ -30,9 +30,21 @@ namespace API.Services
 
         public async Task<Response<PagedList<VehicleDto>>> GetDriverVehicles(PaginationParams paginationParams,int appUserId)
         {
-            var query = _vehicleRepository.GetAll(s => s.VehicleAppUsers.Any(q => q.AppUserId == appUserId), new[] { "VehicleAppUsers" }).ProjectTo<VehicleDto>(_mapper.ConfigurationProvider);
+            var query = _vehicleRepository.GetAll(s => s.VehicleAppUsers.Any(q => q.AppUserId == appUserId), new[] { "VehicleAppUsers","Device" }).ProjectTo<VehicleDto>(_mapper.ConfigurationProvider);
+            var tmp = query.ToList();
             var result = await PagedList<VehicleDto>.CreateAsync(query, paginationParams.PageNumber, paginationParams.PageSize);
             return new Response<PagedList<VehicleDto>>(result);
+        }
+
+        public async Task<Response<bool>> CreateVehicle(CreateVehicleDto createVehicleDto,int enterpriseId)
+        {
+            _vehicleRepository.Add(new Vehicle
+            {
+                EnterpriseId = enterpriseId,
+                PlateNumber = createVehicleDto.PlateNumber,
+            });
+            await _vehicleRepository.SaveAsync();
+            return new Response<bool>(true); ;
         }
     }
 }

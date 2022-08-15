@@ -34,5 +34,12 @@ namespace API.Controllers
         {
             return Ok(await _vehicleService.SetVehicleStatus(vehicleId,model.Status));
         }
+
+        [Authorize(Roles = $"{Roles.Admin}")]
+        [HttpPost("{enterpriseId}")]
+        public async Task<ActionResult> CreateVehicle([FromBody] CreateVehicleDto model,int enterpriseId)
+        {
+            return Ok(await _vehicleService.CreateVehicle(model,enterpriseId));
+        }
     }
 }

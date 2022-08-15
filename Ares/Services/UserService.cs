@@ -67,25 +67,37 @@ namespace API.Services
             return new Response<AuthenticateResponse>(new AuthenticateResponse(user, jwtToken, newRefreshToken.Token));
         }
 
-        public async Task<Response<AuthenticateResponse>> RegisterAccount(RegisterAccountDto model, string ipAdress)
+        public async Task<Response<bool>> RegisterDriver(RegisterDriverDto model, string ipAdress)
         {
-            var role = typeof(Roles).GetProperties().First(s => s.Name == model.Role).Name;
+            if (await UserExists(model)) throw new CustomException("Kullanıcı zaten kayıtlı");
+            var vehicle = await VehicleExists(model.PlateNumber);
+            if (vehicle == null) throw new CustomException("Araç sistemde kayıtlı değil");
             var user = new AppUser()
             {
+                Guid = Guid.NewGuid(),
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 UserName = $"{model.FirstName.Trim().Replace(" ", "")}{model.LastName.Trim().Replace(" ", "")}".GenerateUsername(),
+                PhoneNumber = model.PhoneNumber,
+                InstitutionId = vehicle.Enterprise.InstitutionId
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, role);
-                return await Login(new AuthenticateRequest
+                await _userManager.AddToRoleAsync(user, Roles.Driver);
+                _context.AppUserEnterprises.Add(new AppUserEnterprise
                 {
-                    Login = model.Email,
-                    Password = model.Password
-                }, ipAdress);
+                    AppUserId = user.Id,
+                    EnterpriseId = vehicle.EnterpriseId
+                });
+                _context.VehicleAppUsers.Add(new VehicleAppUser
+                {
+                    AppUserId = user.Id,
+                    VehicleId = vehicle.Id,
+                });
+                await _context.SaveChangesAsync();
+                return new Response<bool>(true);
             }
 
             throw new IdentityException(result.Errors);
@@ -105,6 +117,16 @@ namespace API.Services
             refreshToken.RevokedByIp = ipAddress;
 
             return new Response<bool>(await _context.SaveChangesAsync() > 0);
+        }
+
+        private async Task<Vehicle> VehicleExists(string plateNumber)
+        {
+            var result = await _context.Vehicles.Include(s => s.Enterprise).FirstOrDefaultAsync(s => s.PlateNumber == plateNumber).ConfigureAwait(false);
+            return result;
+        }
+        private async Task<bool> UserExists(RegisterDriverDto user)
+        {
+            return await _userManager.Users.AnyAsync(s => s.Email.ToLower() == user.Email || s.PhoneNumber.Contains(user.PhoneNumber));
         }
     }
 }

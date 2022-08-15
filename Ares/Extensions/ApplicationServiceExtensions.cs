@@ -17,7 +17,9 @@ namespace API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IEnterpriseService, EnterpriseService>();
             services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IInstitutionService, InstitutionService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

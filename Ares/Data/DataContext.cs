@@ -69,6 +69,7 @@ namespace API.Data
             builder.Entity<VehicleLatestLocation>()
                 .ToView(nameof(VehicleLatestLocations))
                 .HasKey(t => t.Id);
+
         }
         public DbSet<Institution> Institutions { get; set; }
         public DbSet<Location> Locations { get; set; }
@@ -78,5 +79,6 @@ namespace API.Data
         public DbSet<Enterprise> Enterprises { get; set; }
         public DbSet<AppUserEnterprise> AppUserEnterprises { get; set; }
         public DbSet<VehicleLatestLocation> VehicleLatestLocations { get; set; }
+        public DbSet<Device> Devices { get; set; }
     }
 }

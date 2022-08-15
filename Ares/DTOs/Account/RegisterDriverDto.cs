@@ -1,11 +1,12 @@
 ﻿namespace API.DTOs.Account
 {
-    public class RegisterAccountDto
+    public class RegisterDriverDto
     {
         public string Email { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Role { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PlateNumber { get; set; }
     }
 }

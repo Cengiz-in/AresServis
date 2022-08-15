@@ -8,5 +8,7 @@
         public bool IsActive { get; set; }
         public IList<Location> Locations { get; set; }
         public IList<VehicleAppUser> VehicleAppUsers { get; set; }
+        public int? DeviceId { get; set; }
+        public Device Device { get; set; }
     }
 }

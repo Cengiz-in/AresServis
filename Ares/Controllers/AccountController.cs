@@ -43,13 +43,11 @@ namespace API.Controllers
             return Ok(await _userService.RevokeToken(token, Request.ipAddress(HttpContext)));
         }
 
-        // todo!
-        //[Authorize(Roles = $"{Roles.Admin}")]
-        //[HttpPost("register")]
-        //public async Task<ActionResult> RegisterAccount(RegisterAccountDto model)
-        //{
-        //    return Ok(await _userService.RegisterAccount(model, Request.ipAddress(HttpContext)));
-        //}
+        [HttpPost("register-driver")]
+        public async Task<ActionResult> RegisterDriverAccount(RegisterDriverDto model)
+        {
+            return Ok(await _userService.RegisterDriver(model, Request.ipAddress(HttpContext)));
+        }
 
     }
 }

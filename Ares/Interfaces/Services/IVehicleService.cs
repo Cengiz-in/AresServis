@@ -9,5 +9,6 @@ namespace API.Interfaces.Services
     {
         Task<Response<bool>> SetVehicleStatus(int vehicleId,bool status);
         Task<Response<PagedList<VehicleDto>>> GetDriverVehicles(PaginationParams paginationParams, int appUserId);
+        Task<Response<bool>> CreateVehicle(CreateVehicleDto createVehicleDto,int enterpriseId);
     }
 }

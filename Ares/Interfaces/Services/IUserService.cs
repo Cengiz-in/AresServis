@@ -8,6 +8,6 @@ namespace API.Interfaces.Services
         Task<Response<AuthenticateResponse>> Login(AuthenticateRequest model, string ipAddress);
         Task<Response<AuthenticateResponse>> RefreshToken(string token, string ipAddress);
         Task<Response<bool>> RevokeToken(string token, string ipAddress);
-        Task<Response<AuthenticateResponse>> RegisterAccount(RegisterAccountDto model, string ipAdress);
+        Task<Response<bool>> RegisterDriver(RegisterDriverDto model, string ipAdress);
     }
 }
