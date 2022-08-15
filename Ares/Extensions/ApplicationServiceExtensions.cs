@@ -20,6 +20,7 @@ namespace API.Extensions
             services.AddScoped<IEnterpriseService, EnterpriseService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IInstitutionService, InstitutionService>();
+            services.AddScoped<IDeviceService, DeviceService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
