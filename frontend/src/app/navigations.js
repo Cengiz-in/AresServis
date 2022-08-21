@@ -4,7 +4,7 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 export const navigations = [
   { name: 'Anasayfa', path: '/dashboard/default', icon: 'dashboard', auth: authRoles.Driver },
   { name: 'Harita', path: '/map/default', icon: 'map', auth: authRoles.Admin },
-  { name: 'Araçlar', path: '/vehicle/default', icon: <DirectionsBusIcon/>, auth: authRoles.Admin },
+  { name: 'Araç Bilgileri', path: '/vehicle/default', icon: <DirectionsBusIcon/>, auth: authRoles.Admin },
   // { label: 'PAGES', type: 'label' },
   // {
   //   name: 'Session/Auth',

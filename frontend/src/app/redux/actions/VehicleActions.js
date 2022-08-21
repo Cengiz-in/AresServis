@@ -1,10 +1,10 @@
 import axios from 'axios.js';
 
-export const GET_VEHICLE = 'GET_VEHICLES';
+export const GET_VEHICLE = 'GET_VEHICLE';
 export const PUT_VEHICLE = 'PUT_VEHICLE';
 
 export const getVehicles = () => (dispatch) => {
-    axios.get(`/vehicle/vehicles`).then((res) => {
+    axios.get(`/vehicle/vehicles/`).then((res) => {
         dispatch({
             type:GET_VEHICLE,
             payload: res.data.result,
@@ -12,8 +12,8 @@ export const getVehicles = () => (dispatch) => {
     });
 };
 
-export const putVehicles = (values) => (dispatch) => {
-    axios.put(`/Vehicle/${vehicleId}/update`,values).then((res)=>{
+export const putVehicles = (vehicleId) => (dispatch) => {
+    axios.put(`/Vehicle/${vehicleId}/update/`).then((res)=>{
         dispatch({
             type: PUT_VEHICLE,
             payload: res.data.result,

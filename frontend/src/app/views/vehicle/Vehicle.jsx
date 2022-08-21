@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,6 +14,9 @@ import {
   GridToolbarContainer,
   GridActionsCellItem,
 } from '@mui/x-data-grid';
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getVehicles } from 'app/redux/actions/VehicleActions';
 
 
 const initialRows = [
@@ -69,8 +73,11 @@ EditToolbar.propTypes = {
 };
 
 export default function Vehicle() {
+  const dispatch = useDispatch();
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+  //const {vehicles} = useSelector((state) => state.vehicles);
+  //const { vehicleId } = useParams();
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -171,6 +178,9 @@ export default function Vehicle() {
       },
     },
   ];
+
+
+ 
 
   return (
     <Box

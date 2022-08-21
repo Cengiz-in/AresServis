@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://ares-api.beyhanyazilim.com/api'
+  baseURL: 'https://localhost:5001/api'
 });
 
 axiosInstance.interceptors.response.use(
