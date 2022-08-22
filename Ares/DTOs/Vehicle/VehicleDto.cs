@@ -8,6 +8,6 @@ namespace API.DTOs.Vehicle
         public string PlateNumber { get; set; }
         public bool IsActive { get; set; }
         public Device Device { get; set; }
-        public IList<VehicleAppUserDto> VehicleAppUsers { get; set; }
+        public string VehicleDriver { get; set; }
     }
 }

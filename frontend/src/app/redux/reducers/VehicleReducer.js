@@ -1,34 +1,29 @@
 
 import {
-    GET_VEHICLES, 
+    GET_VEHICLE, 
+    PUT_VEHICLE
  } from '../actions/VehicleActions';
 
  const initialState = {
-        succeeded:"",
-        message: "",
-        errors: "",
-        result: [
-          {
-            id: id,
-            plateNumber: "",
-            isActive: false,
-            device: "",
-            vehicleAppUsers: [
-              {
-                appUserId: id,
-                appUserName: ""
-              }
-            ]       
+    vehicles :[]
 } 
-]
- };
+
+
 
  const VehicleReducer = function (state = initialState, action) {
+    
     switch (action.type) {
-      case GET_VEHICLES: {
+       
+      case GET_VEHICLE: {
         return {
           ...state,
           vehicles: [...action.payload],
+        };
+      }
+      case PUT_VEHICLE: {
+        return {
+          ...state,
+          vehicleUpdate: [...action.payload],
         };
       }
       default: {

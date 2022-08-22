@@ -8,6 +8,7 @@ const Map = () => {
   const dispatch = useDispatch();
   const { locations } = useSelector((state) => state.location);
 
+  console.log(locations)
   useEffect(() => {
     const interval = setInterval(() => {
       try {

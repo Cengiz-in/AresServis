@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [Authorize(Roles = $"{Roles.Admin}")]
-        [HttpPut("{vehicleId}/update")]
+        [HttpPut("update/{vehicleId}")]
         public async Task<ActionResult> UpdateVehicle([FromBody] AddVehicle model, int vehicleId)
         {
             return Ok(await _vehicleService.UpdateVehicle(vehicleId, model));

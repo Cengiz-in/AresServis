@@ -12,7 +12,8 @@ namespace API.Helpers
         {
             CreateMap<Vehicle, VehicleDto>()
                 .ForMember(s => s.Device, opt => opt.MapFrom(q => q.Device))
-                 .ForMember(s => s.PlateNumber, opt => opt.MapFrom(q => q.PlateNumber)); ;
+                .ForMember(s => s.VehicleDriver, opt => opt.MapFrom(q => q.VehicleAppUsers.Any() ?
+                    $"{q.VehicleAppUsers.FirstOrDefault().AppUser.FirstName} {q.VehicleAppUsers.FirstOrDefault().AppUser.LastName}" : ""));
             CreateMap<Enterprise, EnterpriseDto>();
             CreateMap<Institution, InstitutionDto>();
             CreateMap<VehicleAppUser, VehicleAppUserDto>()

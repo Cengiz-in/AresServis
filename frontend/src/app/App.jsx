@@ -19,6 +19,8 @@ const options = {
 const App = () => {
   const content = useRoutes(routes);
 
+ 
+
   return (
     <Provider store={Store}>
       <SettingsProvider>
