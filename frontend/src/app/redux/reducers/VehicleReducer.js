@@ -1,7 +1,9 @@
 
 import {
     GET_VEHICLE, 
-    PUT_VEHICLE
+    PUT_VEHICLE,
+    VEHICLE_ERRORS,
+    VEHICLE_SUCCEEDED,
  } from '../actions/VehicleActions';
 
  const initialState = {
@@ -23,7 +25,19 @@ import {
       case PUT_VEHICLE: {
         return {
           ...state,
-          vehicleUpdate: [...action.payload],
+          vehicleUpdate: action.payload,
+        };
+      }
+      case VEHICLE_SUCCEEDED: {
+        return {
+          ...state,
+          vehicleSucceded: action.payload
+        };
+      }
+      case VEHICLE_ERRORS:{
+        return {
+          ...state,
+          vehicleErrors: action.payload
         };
       }
       default: {
