@@ -28,6 +28,15 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = $"{Roles.Admin}")]
+        [HttpGet("vehicles")]
+        public async Task<ActionResult> GetVehicles([FromQuery] PaginationParams pagingParams)
+        {
+            var result = await _vehicleService.GetVehicles(pagingParams, GetLoggedInUserId());
+            Response.AddPaginationHeader(result.Result.CurrentPage, result.Result.PageSize, result.Result.TotalCount, result.Result.TotalPages);
+            return Ok(result);
+        }
+
         [Authorize(Roles = $"{Roles.Driver}")]
         [HttpPut("{vehicleId}/status")]
         public async Task<ActionResult> SetVehicleStatus([FromBody]VehicleStatusDto model, int vehicleId)
@@ -40,6 +49,13 @@ namespace API.Controllers
         public async Task<ActionResult> CreateVehicle([FromBody] CreateVehicleDto model,int enterpriseId)
         {
             return Ok(await _vehicleService.CreateVehicle(model,enterpriseId));
+        }
+
+        [Authorize(Roles = $"{Roles.Admin}")]
+        [HttpPut("update/{vehicleId}")]
+        public async Task<ActionResult> UpdateVehicle([FromBody] AddVehicle model, int vehicleId)
+        {
+            return Ok(await _vehicleService.UpdateVehicle(vehicleId, model));
         }
     }
 }

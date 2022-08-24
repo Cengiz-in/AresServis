@@ -12,7 +12,7 @@ const AppSwitch = Loadable(lazy(() => import('./switch/AppSwitch')));
 const AppRadio = Loadable(lazy(() => import('./radio/AppRadio')));
 const AppSlider = Loadable(lazy(() => import('./slider/AppSlider')));
 const AppDialog = Loadable(lazy(() => import('./dialog/AppDialog')));
-const AppSnackbar = Loadable(lazy(() => import('./snackbar/AppSnackbar')));
+//const AppSnackbar = Loadable(lazy(() => import('./snackbar/AppSnackbar')));
 const AppAutoComplete = Loadable(lazy(() => import('./auto-complete/AppAutoComplete')));
 const AppExpansionPanel = Loadable(lazy(() => import('./expansion-panel/AppExpansionPanel')));
 
@@ -69,10 +69,7 @@ const materialRoutes = [
     path: '/material/dialog',
     element: <AppDialog />,
   },
-  {
-    path: '/material/snackbar',
-    element: <AppSnackbar />,
-  },
+
 ];
 
 export default materialRoutes;
