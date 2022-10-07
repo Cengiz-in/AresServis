@@ -8,5 +8,6 @@ namespace API.Interfaces.Services
     {
         Task<Response<bool>> AddLocation(LocationDto location, int vehicleId, int appUserId);
         Task<Response<IList<VehicleLatestLocation>>> VehicleLocationsView();
+        Task<Response<IList<LocationHistoryDto>>> VehicleLocationHistory(int vehicleId, DateTime startDate, DateTime endDate);
     }
 }
