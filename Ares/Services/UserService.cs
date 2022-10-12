@@ -69,7 +69,7 @@ namespace API.Services
 
         public async Task<Response<bool>> RegisterDriver(RegisterDriverDto model, string ipAdress)
         {
-            if (await UserExists(model)) throw new CustomException("Kullanıcı zaten kayıtlı");
+            if (await UserExists(model.Email,model.PhoneNumber)) throw new CustomException("Kullanıcı zaten kayıtlı");
             var vehicle = await VehicleExists(model.PlateNumber);
             if (vehicle == null) throw new CustomException("Araç sistemde kayıtlı değil");
             var user = new AppUser()
@@ -124,9 +124,75 @@ namespace API.Services
             var result = await _context.Vehicles.Include(s => s.Enterprise).FirstOrDefaultAsync(s => s.PlateNumber == plateNumber).ConfigureAwait(false);
             return result;
         }
-        private async Task<bool> UserExists(RegisterDriverDto user)
+        private async Task<bool> UserExists(string email,string phoneNumber)
         {
-            return await _userManager.Users.AnyAsync(s => s.Email.ToLower() == user.Email || s.PhoneNumber.Contains(user.PhoneNumber));
+            return await _userManager.Users.AnyAsync(s => s.Email.ToLower() == email.ToLower() || s.PhoneNumber.Contains(phoneNumber));
+        }
+
+        public async Task<Response<bool>> Register(RegisterDto model, string ipAdress)
+        {
+            var enterpriseId = 2;
+            var institutionId = 2;
+
+            if (await UserExists(model.Email,model.PhoneNumber)) throw new CustomException("Kullanıcı zaten kayıtlı");
+            var vehicle = new Vehicle
+            {
+                EnterpriseId = enterpriseId,
+                PlateNumber = model.PlateNumber,
+            };
+            
+            _context.Vehicles.Add(vehicle);
+            var user = new AppUser()
+            {
+                Guid = Guid.NewGuid(),
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = $"{model.FirstName.Trim().Replace(" ", "")}{model.LastName.Trim().Replace(" ", "")}".GenerateUsername(),
+                PhoneNumber = model.PhoneNumber,
+                InstitutionId = institutionId
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Driver);
+                _context.AppUserEnterprises.Add(new AppUserEnterprise
+                {
+                    AppUserId = user.Id,
+                    EnterpriseId = enterpriseId
+                });
+                _context.VehicleAppUsers.Add(new VehicleAppUser
+                {
+                    AppUserId = user.Id,
+                    VehicleId = vehicle.Id,
+                });
+                await _context.SaveChangesAsync();
+                return new Response<bool>(true);
+            }
+
+            throw new IdentityException(result.Errors);
+        }
+
+        public async Task<Response<bool>> Delete(int userId)
+        {
+            var appuserenterprise = await _context.AppUserEnterprises.FirstAsync(s => s.AppUserId == userId);
+            var appuserVehicles = _context.VehicleAppUsers.Include(s=> s.Vehicle).Where(s => s.AppUserId == userId);
+            var user = await _userManager.Users.FirstAsync(s => s.Id == userId);
+            var vehicles = appuserVehicles.Select(s => s.Vehicle);
+            _context.AppUserEnterprises.Remove(appuserenterprise);
+            _context.VehicleAppUsers.RemoveRange(appuserVehicles);
+            _context.Vehicles.RemoveRange(vehicles);
+            _context.Users.Remove(user);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception er )
+            {
+
+                throw;
+            }
+            return new Response<bool>(true);
         }
     }
 }

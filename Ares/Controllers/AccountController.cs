@@ -49,5 +49,19 @@ namespace API.Controllers
             return Ok(await _userService.RegisterDriver(model, Request.ipAddress(HttpContext)));
         }
 
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult> Register(RegisterDto model)
+        {
+            return Ok(await _userService.Register(model, Request.ipAddress(HttpContext)));
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<ActionResult> RemoveUser()
+        {
+            var userId = GetLoggedInUserId();
+            return Ok(await _userService.Delete(userId));
+        }
     }
 }
