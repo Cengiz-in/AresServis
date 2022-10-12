@@ -38,7 +38,7 @@ const GoogleMaps = ({ locations }) => {
   return (
     <div style={{ height: height - sidenavCompactWidth, width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "" }}
+        bootstrapURLKeys={{ key: "AIzaSyAXy8dgvhceCnZtQgSVcKK1uj23-0fD_TY" }}
         resetBoundsOnResize={true}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}

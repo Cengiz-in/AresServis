@@ -27,5 +27,12 @@ namespace API.Controllers
         {
             return Ok(await _locationService.VehicleLocationsView());
         }
+
+        [Authorize(Roles = $"{Roles.Admin}")]
+        [HttpGet("{vehicleId}")]
+        public async Task<ActionResult> VehicleLocations(int vehicleId, DateTime startDate, DateTime endDate)
+        {
+            return Ok(await _locationService.VehicleLocationHistory(vehicleId,startDate,endDate));
+        }
     }
 }

@@ -1,5 +1,6 @@
 using API.DTOs.Enterprise;
 using API.DTOs.Instution;
+using API.DTOs.Location;
 using API.DTOs.Vehicle;
 using API.Entities;
 using AutoMapper;
@@ -18,6 +19,7 @@ namespace API.Helpers
             CreateMap<Institution, InstitutionDto>();
             CreateMap<VehicleAppUser, VehicleAppUserDto>()
                .ForMember(s => s.AppUserName, opt => opt.MapFrom(q => $"{q.AppUser.FirstName} {q.AppUser.LastName}"));
+            CreateMap<Location, LocationHistoryDto>().ReverseMap();
         }
     }
 }
