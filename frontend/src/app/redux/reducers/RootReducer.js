@@ -11,6 +11,7 @@ const RootReducer = combineReducers({
   ecommerce: EcommerceReducer,
   location: LocationReducer,
   vehicle: VehicleReducer,
+  history: LocationReducer,
 });
 
 export default RootReducer;

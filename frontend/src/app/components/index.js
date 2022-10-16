@@ -28,3 +28,5 @@ export { default as SimpleCard } from './SimpleCard';
 //Ares
 export { default as AresLogo } from './AresLogo';
 export { default as GoogleMaps } from './GoogleMaps';
+export { default as GoogleMap } from './GoogleMap';
+
