@@ -29,7 +29,6 @@ const VehicleHistory = () => {
     startDate: "",
     endDate: "",
   };
-
   const validationSchema = Yup.object().shape({
     id: Yup.number().required("Plaka boş geçilemez!"),
     startDate: Yup.string().required("Tarih alanı boş geçilemez!"),
