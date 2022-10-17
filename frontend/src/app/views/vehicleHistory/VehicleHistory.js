@@ -29,7 +29,6 @@ const VehicleHistory = () => {
     startDate: "",
     endDate: "",
   };
-
   const validationSchema = Yup.object().shape({
     id: Yup.number().required("Plaka boş geçilemez!"),
     startDate: Yup.string().required("Tarih alanı boş geçilemez!"),
@@ -119,7 +118,7 @@ const VehicleHistory = () => {
                     sx={{ mb: 1.5, Color: '1px  pink', borderRadius: 1}}
                       InputLabelProps={{ shrink: true }}
                       fullWidth
-                      type="date"
+                      type="datetime-local"
                       value={values.startDate}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -136,7 +135,7 @@ const VehicleHistory = () => {
                     <TextField
                       InputLabelProps={{ shrink: true }}
                       fullWidth
-                      type="date"
+                      type="datetime-local"
                       value={values.endDate}
                       name="endDate"
                       onBlur={handleBlur}
