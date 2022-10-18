@@ -1,5 +1,6 @@
 import axios from 'axios.js';
 
+export const POST_VEHICLE = 'POST_VEHICLE';
 export const GET_VEHICLE = 'GET_VEHICLE';
 export const PUT_VEHICLE = 'PUT_VEHICLE';
 export const VEHICLE_SUCCEEDED ='VEHICLE_SUCCEEDED';
@@ -17,6 +18,15 @@ export const putVehicles = (vehicleId,body) => (dispatch) => {
   axios.put(`/Vehicle/update/${vehicleId}`,{...body}).then((res) => {
     dispatch({
       type: PUT_VEHICLE,
+      payload: res.data.result,
+    });
+  });
+};
+
+export const postVehicles = (body) => (dispatch) => {
+  axios.post(`/Vehicle/post/`,{...body}).then((res) => {
+    dispatch({
+      type: POST_VEHICLE,
       payload: res.data.result,
     });
   });

@@ -1,6 +1,7 @@
 
 import {
     GET_VEHICLE, 
+    POST_VEHICLE, 
     PUT_VEHICLE,
     VEHICLE_ERRORS,
     VEHICLE_SUCCEEDED,
@@ -26,6 +27,12 @@ import {
         return {
           ...state,
           vehicleUpdate: action.payload,
+        };
+      }
+      case POST_VEHICLE: {
+        return {
+          ...state,
+          vehiclePost: action.payload,
         };
       }
       case VEHICLE_SUCCEEDED: {
