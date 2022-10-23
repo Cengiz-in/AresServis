@@ -1,0 +1,93 @@
+
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("sayko.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  .btn {
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 12px;
+    background-color: transparent;
+    height: 50px;
+    width: 200px;
+    color: white;
+    font-size: 1.5em;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+}
+.icn {
+    display: flex;
+    margin: 15px;
+    flex-direction: column;
+    align-items: center;
+justify-content: center;
+}
+.app-icons {
+  display: flex;
+  align-items: center;
+}
+.vertical {
+  width: 300px;
+  flex-direction: column;
+}
+.android {
+  width: 150px;
+height: 60px;
+}
+.apple {
+  width: 150px;
+  height: 60px;
+  margin: 15px;
+}
+.download {
+  width: 200px;
+  height: 75px;
+  background: black;
+  float: left;
+  border-radius: 5px;
+  position: relative;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #fff;
+}
+
+.download > .fa {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+}
+
+.df,
+.dfn {
+  position: absolute;
+  left: 70px;
+}
+
+.df {
+  top: 20px;
+  font-size: .68em;
+}
+
+.dfn {
+  top: 33px;
+  font-size: 1.08em;
+}
+
+.download:hover {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
