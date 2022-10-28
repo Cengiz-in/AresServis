@@ -9,6 +9,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAlert } from 'react-alert'
 import * as Yup from 'yup';
 import { AresLogo } from 'app/components';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
 
 const FlexBox = styled(Box)(() => ({ display: 'flex', alignItems: 'center' }));
 
@@ -54,6 +58,7 @@ const JwtLogin = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword]= useState(false);
 
   const { login } = useAuth();
 
@@ -66,6 +71,10 @@ const JwtLogin = () => {
       alert.error(e);
       setLoading(false);
     }
+  };
+
+  const handleToggle = () =>{
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -110,7 +119,7 @@ const JwtLogin = () => {
                       fullWidth
                       size="small"
                       name="password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       label="Password"
                       variant="outlined"
                       onBlur={handleBlur}
@@ -119,6 +128,19 @@ const JwtLogin = () => {
                       helperText={touched.password && errors.password}
                       error={Boolean(errors.password && touched.password)}
                       sx={{ mb: 1.5 }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleToggle}                          
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+                          </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
 
                     <FlexBox justifyContent="space-between">
