@@ -23,13 +23,13 @@ export const putVehicles = (vehicleId,body) => (dispatch) => {
   });
 };
 
-export const postVehicles = (body) => (dispatch) => {
-  axios.post(`/Vehicle/post/`,{...body}).then((res) => {
+export const postVehicles = (EnterpriseId,body) => async (dispatch) => {
+ const res = await axios.post(`/Vehicle/${EnterpriseId}`,{...body}); 
     dispatch({
       type: POST_VEHICLE,
       payload: res.data.result,
     });
-  });
+
 };
 
 export const resetVehicleSucceeded = () => (dispatch) => {
