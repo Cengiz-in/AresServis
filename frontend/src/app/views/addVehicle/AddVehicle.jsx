@@ -35,12 +35,15 @@ const AddVehicle = () => {
   const {enterprise} =useSelector((state)=> state.enterprise)
   // form field validation schema
   const validationSchema = Yup.object().shape({
-    //plateNumber: Yup.string().required("Plaka boş geçilemez!"),
+    plateNumber: Yup.string().required("Plaka boş geçilemez!"),
   });
 
 
+console.log('kurum')
+console.log(enterprise)
   const addInitilaValue = {
-    plateNumber: "",
+    id:1,
+    plateNumber: '',
   };
 
   const handleEditClose = () => {
@@ -83,6 +86,7 @@ const AddVehicle = () => {
   const submitAddVehicleForm = async (values) => {
     console.log('asd')
     console.log(values)
+
    await dispatch(postVehicles(values));
     handleEditClose();
   };
@@ -93,20 +97,22 @@ const AddVehicle = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  
- 
+
 
   const columns = [
-    
-    { field: "id", headerName: "#", type: "number", editable: false},
+    { field: "id", headerName: "#", type: "number", editable: false },
     {
       field: "plateNumber",
-      headerName: "Plaka",  
-     
+      headerName: "Plaka",
       type: "string",
-      editable: true,
-
-    }, 
+      editable: false,
+    },
+    {
+      field: "name",
+      headerName: "Kurum",
+      type: "string",
+      editable: false,
+      },
   ];
   return (
     <Box
@@ -165,7 +171,6 @@ const AddVehicle = () => {
                   variant="outlined"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  helperText={touched.plateNumber && errors.plateNumber}
                   error={Boolean(errors.plateNumber && touched.plateNumber)}
                   sx={{ mb: 3 }}
                 />
@@ -176,7 +181,7 @@ const AddVehicle = () => {
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  autoWidth
+                  //autoWidth
                   label="Kurum"
                   error={Boolean(errors.id && touched.id)}
                   sx={{ mb: 3 }}

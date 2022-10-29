@@ -23,8 +23,10 @@ export const putVehicles = (vehicleId,body) => (dispatch) => {
   });
 };
 
-export const postVehicles = (EnterpriseId,body) => async (dispatch) => {
- const res = await axios.post(`/Vehicle/${EnterpriseId}`,{...body}); 
+export const postVehicles = (values) => async (dispatch) => {
+ const res = await axios.post(`/Vehicle/${values.id}`,{...values}); 
+ console.log('arac ekleme')
+ console.log(res)
     dispatch({
       type: POST_VEHICLE,
       payload: res.data.result,
