@@ -79,7 +79,7 @@ const AddVehicle = () => {
     } catch (e) {
       alert.error(e);
     }
-  });
+  }, [open]);
 
   const submitAddVehicleForm = async (values) => {
     console.log("asd");
