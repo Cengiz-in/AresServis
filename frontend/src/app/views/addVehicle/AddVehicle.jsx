@@ -1,15 +1,15 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { positions } from '@mui/system';
+import { positions } from "@mui/system";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,33 +17,31 @@ import {
   postVehicles,
   resetVehicleErrors,
 } from "app/redux/actions/VehicleActions";
-import {getEnterprise} from "app/redux/actions/EnterpriseActions";
+import { getEnterprise } from "app/redux/actions/EnterpriseActions";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Grid } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useParams } from "react-router-dom";
 
-
-
-
 const AddVehicle = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { vehicles, vehicleSucceded, vehicleErrors } = useSelector((state) => state.vehicle);
+  const { vehicles, vehicleSucceded, vehicleErrors } = useSelector(
+    (state) => state.vehicle
+  );
   const [openEdit, setOpenEdit] = useState(false);
-  const {enterprise} =useSelector((state)=> state.enterprise)
+  const { enterprise } = useSelector((state) => state.enterprise);
   // form field validation schema
   const validationSchema = Yup.object().shape({
     plateNumber: Yup.string().required("Plaka boş geçilemez!"),
   });
 
-
-console.log('kurum')
-console.log(enterprise)
+  console.log("kurum");
+  console.log(enterprise);
   const addInitilaValue = {
-    id:1,
-    plateNumber: '',
+    id: 1,
+    plateNumber: "",
   };
 
   const handleEditClose = () => {
@@ -81,14 +79,14 @@ console.log(enterprise)
     } catch (e) {
       alert.error(e);
     }
-  }, []);
+  });
 
   const submitAddVehicleForm = async (values) => {
-    console.log('asd')
-    console.log(values)
+    console.log("asd");
+    console.log(values);
 
-   await dispatch(postVehicles(values));
-    handleEditClose();
+    await dispatch(postVehicles(values));
+    handleClose();
   };
   const handleClickOpen = () => {
     setOpen(true);
@@ -97,7 +95,6 @@ console.log(enterprise)
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const columns = [
     { field: "id", headerName: "#", type: "number", editable: false },
@@ -112,7 +109,7 @@ console.log(enterprise)
       headerName: "Kurum",
       type: "string",
       editable: false,
-      },
+    },
   ];
   return (
     <Box
@@ -174,7 +171,7 @@ console.log(enterprise)
                   error={Boolean(errors.plateNumber && touched.plateNumber)}
                   sx={{ mb: 3 }}
                 />
-                 <Select
+                <Select
                   fullWidth
                   value={values.id}
                   name="id"
@@ -231,6 +228,6 @@ console.log(enterprise)
       </Dialog>
     </Box>
   );
-}
+};
 
 export default AddVehicle;
