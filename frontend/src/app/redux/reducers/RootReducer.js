@@ -4,6 +4,7 @@ import NavigationReducer from './NavigationReducer';
 import NotificationReducer from './NotificationReducer';
 import LocationReducer from './LocationReducer';
 import VehicleReducer from './VehicleReducer';
+import EnterpriseReducer from './EnterpriseReducer';
 
 const RootReducer = combineReducers({
   notifications: NotificationReducer,
@@ -12,6 +13,8 @@ const RootReducer = combineReducers({
   location: LocationReducer,
   vehicle: VehicleReducer,
   history: LocationReducer,
+  vehiclePost: VehicleReducer,
+  enterprise: EnterpriseReducer,
 });
 
 export default RootReducer;

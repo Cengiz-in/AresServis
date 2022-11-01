@@ -1,11 +1,19 @@
 import { authRoles } from "./auth/authRoles";
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
+import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
 
 export const navigations = [
   { name: 'Anasayfa', path: '/dashboard/default', icon: 'dashboard', auth: authRoles.Driver },
   { name: 'Harita', path: '/map/default', icon: 'map', auth: authRoles.Admin },
-  { name: 'Araç Bilgileri', path: '/vehicle/default', icon: <DirectionsBusIcon/>, auth: authRoles.Admin },
-  { name: 'Lokasyon Bilgileri', path: '/vehicleHistory/default', icon: 'map', auth: authRoles.Admin },
+  { name: 'Araçlar', icon: <DirectionsBusIcon fontSize="small"/>,
+   children:[
+    { name: 'Araç Bilgileri', path: '/vehicle/default', icon: <EmojiTransportationIcon fontSize="small"/>, auth: authRoles.Admin },
+    { name: 'Araç Bilgileri Ekle', path: '/addVehicle/default', icon: <AddBoxIcon fontSize="small"/>, auth: authRoles.Admin },
+   ]},
+  
+  { name: 'Lokasyon Bilgileri', path: '/vehicleHistory/default', icon: <NotListedLocationIcon fontSize="small" />, auth: authRoles.Admin },
 
   // { label: 'PAGES', type: 'label' },
   // {
