@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { positions } from "@mui/system";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -21,15 +20,11 @@ import { getEnterprise } from "app/redux/actions/EnterpriseActions";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Grid } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import { useParams } from "react-router-dom";
 
 const AddVehicle = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { vehicles, vehicleSucceded, vehicleErrors } = useSelector(
-    (state) => state.vehicle
-  );
+  const { vehicles } = useSelector((state) => state.vehicle);
   const [openEdit, setOpenEdit] = useState(false);
   const { enterprise } = useSelector((state) => state.enterprise);
   // form field validation schema
@@ -37,8 +32,6 @@ const AddVehicle = () => {
     plateNumber: Yup.string().required("Plaka boş geçilemez!"),
   });
 
-  console.log("kurum");
-  console.log(enterprise);
   const addInitilaValue = {
     id: 1,
     plateNumber: "",
@@ -47,23 +40,6 @@ const AddVehicle = () => {
   const handleEditClose = () => {
     setOpenEdit(false);
   };
-
-  useEffect(() => {
-    if (vehicleErrors != null) {
-      const variant = "error";
-      // enqueueSnackbar(vehicleErrors, { variant });
-      dispatch(resetVehicleErrors());
-    }
-  }, [vehicleErrors, dispatch]);
-
-  useEffect(() => {
-    if (vehicleSucceded != null) {
-      const variant = "success";
-      //enqueueSnackbar("Başarılı", { variant });
-      dispatch(resetVehicleErrors());
-      handleEditClose();
-    }
-  }, [vehicleSucceded, dispatch]);
 
   useEffect(() => {
     try {
@@ -82,10 +58,8 @@ const AddVehicle = () => {
   }, [open]);
 
   const submitAddVehicleForm = async (values) => {
-    console.log("asd");
-    console.log(values);
-
     await dispatch(postVehicles(values));
+
     handleClose();
   };
   const handleClickOpen = () => {
@@ -101,12 +75,6 @@ const AddVehicle = () => {
     {
       field: "plateNumber",
       headerName: "Plaka",
-      type: "string",
-      editable: false,
-    },
-    {
-      field: "name",
-      headerName: "Kurum",
       type: "string",
       editable: false,
     },
