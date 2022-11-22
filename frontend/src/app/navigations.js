@@ -3,9 +3,11 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
 import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 export const navigations = [
   { name: 'Anasayfa', path: '/dashboard/default', icon: 'dashboard', auth: authRoles.Driver },
+  { name: 'Kurumlar', path: '/corporation/default', icon: <ApartmentIcon fontSize="small"/>, auth: authRoles.Admin },
   { name: 'Harita', path: '/map/default', icon: 'map', auth: authRoles.Admin },
   { name: 'Araçlar', icon: <DirectionsBusIcon fontSize="small"/>,
    children:[
